@@ -198,10 +198,12 @@ def unpack_inline_message_id(inline_message_id: str) -> "raw.base.InputBotInline
         )
 
 
-MIN_CHANNEL_ID = -1002147483647
+# MIN_CHANNEL_ID_OLD = -1002147483647
+# MIN_CHAT_ID_OLD = -2147483647
+# MAX_USER_ID_OLD = 2147483647
+MIN_CHANNEL_ID = -1007852516352
 MAX_CHANNEL_ID = -1000000000000
-MIN_CHAT_ID = -2147483647
-MAX_USER_ID_OLD = 2147483647
+MIN_CHAT_ID = -999999999999
 MAX_USER_ID = 999999999999
 
 
@@ -232,18 +234,16 @@ def get_peer_id(peer: raw.base.Peer) -> int:
 
     raise ValueError(f"Peer type invalid: {peer}")
 
-# Edit
-# https://github.com/pyrogram/pyrogram/issues/1417
+
 def get_peer_type(peer_id: int) -> str:
-    print('get_peer_type call')
-    peer_id_str = str(peer_id)
-    
-    if not peer_id_str.startswith("-"):
+    if peer_id < 0:
+        if MIN_CHAT_ID <= peer_id:
+            return "chat"
+
+        if MIN_CHANNEL_ID <= peer_id < MAX_CHANNEL_ID:
+            return "channel"
+    elif 0 < peer_id <= MAX_USER_ID:
         return "user"
-    elif peer_id_str.startswith("-100"):
-        return "channel"
-    else:
-        return "chat"
 
     raise ValueError(f"Peer id invalid: {peer_id}")
 
