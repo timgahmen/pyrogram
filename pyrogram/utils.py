@@ -278,7 +278,8 @@ def get_peer_id(peer: raw.base.Peer) -> int:
 # -------------------------------------
 # Edit
 # https://github.com/pyrogram/pyrogram/issues/1417
-def get_peer_type_new(peer_id: int) -> str:
+# def get_peer_type_new(peer_id: int) -> str:
+def get_peer_type(peer_id: int) -> str:
     peer_id_str = str(peer_id)
     if not peer_id_str.startswith("-"):
         return "user"
@@ -287,7 +288,7 @@ def get_peer_type_new(peer_id: int) -> str:
     else:
         return "chat"
 
-utils.get_peer_type = get_peer_type_new
+# utils.get_peer_type = get_peer_type_new
 
 # -------------------------------------
 
