@@ -199,10 +199,13 @@ def unpack_inline_message_id(inline_message_id: str) -> "raw.base.InputBotInline
 
 
 # -------------------------------------
-# Patch: Pyrogram-v2.0.106c-Fix "Peer id invalid" Error
-# New Value: MIN_CHANNEL_ID = -1001000000000
+# Patch: Pyrogram-v2.0.106d- updated minimum channel id #1435 
+# The minimum channel id was wrong and it's still unknown.
+# TTo allow running bots seamlessly I updated the
+# MIN_CHANNEL_ID = -1002147483647 to
+# MIN_CHANNEL_ID = -1009999999999.
 
-MIN_CHANNEL_ID = -1001000000000
+MIN_CHANNEL_ID = -1009999999999
 MAX_CHANNEL_ID = -1000000000000
 MIN_CHAT_ID = -999999999999
 MAX_USER_ID = 999999999999
