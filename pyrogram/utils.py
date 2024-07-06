@@ -198,12 +198,37 @@ def unpack_inline_message_id(inline_message_id: str) -> "raw.base.InputBotInline
         )
 
 
-MIN_CHANNEL_ID = -1002147483647
+# -------------------------------------
+# Patch: Pyrogram-v2.0.106c-Fix "Peer id invalid" Error
+# New Value: MIN_CHANNEL_ID = -1001000000000
+
+MIN_CHANNEL_ID = -1001000000000
 MAX_CHANNEL_ID = -1000000000000
-MIN_CHAT_ID = -2147483647
-MAX_USER_ID_OLD = 2147483647
+MIN_CHAT_ID = -999999999999
 MAX_USER_ID = 999999999999
 
+# -------------------------------------
+# -------------------------------------
+# Patch: Pyrogram-v2.0.106b-Fix "Peer id invalid" Error
+# New Value: MIN_CHANNEL_ID = -1007852516352
+# New Value: MIN_CHAT_ID = -999999999999
+# The change will be made in the relevant Pyrogram file where `MIN_CHANNEL_ID` and `MIN_CHAT_ID` are defined.
+# -------------------------------------
+# To verify this change, tests will be conducted to ensure that channel and chat IDs are processed correctly without causing the "Peer id invalid" error. Specific test cases will include:
+#
+# Creating a channel with an ID greater than `-1007852516352` and verifying successful handling.
+# Creating a chat with an ID greater than `-999999999999` and verifying successful handling.
+# Handling channel and chat IDs close to the boundary values to ensure no off-by-one errors or similar issues.
+# General regression testing to ensure no other functionality is impacted.
+# -------------------------------------
+# -------------------------------------
+# Old: 
+# MIN_CHANNEL_ID = -1002147483647
+# MAX_CHANNEL_ID = -1000000000000
+# MIN_CHAT_ID = -2147483647
+# MAX_USER_ID_OLD = 2147483647
+# MAX_USER_ID = 999999999999
+# -------------------------------------
 
 def get_raw_peer_id(peer: raw.base.Peer) -> Optional[int]:
     """Get the raw peer id from a Peer object"""
